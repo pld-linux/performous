@@ -10,6 +10,8 @@ URL:		http://performous.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	SDL-devel
 BuildRequires:	alsa-lib-devel
+BuildRequires:	boost-devel
+BuildRequires:	cmake
 BuildRequires:	ffmpeg-devel
 BuildRequires:	glew-devel
 BuildRequires:	glibmm-devel
@@ -19,6 +21,7 @@ BuildRequires:	librsvg-devel
 BuildRequires:	libsigc++-devel
 BuildRequires:	libxml++-devel
 BuildRequires:	pango-devel
+BuildRequires:	pkgconfig
 BuildRequires:	pulseaudio-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -44,10 +47,10 @@ this mode only lyrics are displayed and there are no notes or scoring.
 mkdir build
 cd build
 %cmake .. \
-		-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
-		-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
+	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
 %if "%{_lib}" == "lib64"
-		-DLIB_SUFFIX=64
+	-DLIB_SUFFIX=64
 %endif
 
 %{__make}
