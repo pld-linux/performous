@@ -1,11 +1,11 @@
 Summary:	Performous - a free cross-platform singing game
 Name:		performous
-Version:	0.4.0
-Release:	2
+Version:	0.5.1
+Release:	1
 License:	GPL v2+
 Group:		Applications
 Source0:	http://dl.sourceforge.net/performous/Performous-%{version}-Source.tar.bz2
-# Source0-md5:	d7eafad29a94e3099c849d3c7208bfac
+# Source0-md5:	3c86c4810111e1c45e7b8ab4aa321d7d
 URL:		http://performous.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	SDL-devel
@@ -64,11 +64,12 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%find_lang %{name} --all-name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc docs/*.txt
 %attr(755,root,root) %{_bindir}/*
