@@ -13,6 +13,7 @@ BuildRequires:	alsa-lib-devel
 BuildRequires:	boost-devel
 BuildRequires:	cmake
 BuildRequires:	ffmpeg-devel
+BuildRequires:	gettext-devel
 BuildRequires:	glew-devel
 BuildRequires:	glibmm-devel
 BuildRequires:	help2man
