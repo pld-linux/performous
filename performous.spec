@@ -18,6 +18,7 @@ BuildRequires:	glew-devel
 BuildRequires:	glibmm-devel
 BuildRequires:	help2man
 BuildRequires:	jack-audio-connection-kit-devel
+BuildRequires:	libpng-devel
 BuildRequires:	librsvg-devel
 BuildRequires:	libsigc++-devel
 BuildRequires:	libxml++-devel
