@@ -1,7 +1,7 @@
 Summary:	Performous - a free cross-platform singing game
 Name:		performous
 Version:	0.5.1
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications
 Source0:	http://dl.sourceforge.net/performous/Performous-%{version}-Source.tar.bz2
@@ -43,6 +43,7 @@ this mode only lyrics are displayed and there are no notes or scoring.
 
 %prep
 %setup -qn Performous-%{version}-Source
+%{__sed} -i 's:png12:png14:g' cmake/Modules/FindPng.cmake
 
 %build
 mkdir build
@@ -55,9 +56,6 @@ cd build
 %endif
 
 %{__make}
-
-cd ..
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
