@@ -1,11 +1,11 @@
 Summary:	Performous - a free cross-platform singing game
 Name:		performous
-Version:	0.5.1
-Release:	8
+Version:	0.6.1
+Release:	1
 License:	GPL v2+
 Group:		Applications
 Source0:	http://dl.sourceforge.net/performous/Performous-%{version}-Source.tar.bz2
-# Source0-md5:	3c86c4810111e1c45e7b8ab4aa321d7d
+# Source0-md5:	451a759de77984b5a699e91107fe52e2
 URL:		http://performous.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	SDL-devel
@@ -25,6 +25,7 @@ BuildRequires:	libxml++-devel
 BuildRequires:	pango-devel
 BuildRequires:	pkgconfig
 BuildRequires:	pulseaudio-devel
+Suggests:	%{name}-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,6 +42,13 @@ actual karaoke versions are rare.
 
 For those who sing rather than well, a karaoke mode is provided. In
 this mode only lyrics are displayed and there are no notes or scoring.
+
+%package tools
+Summary:	Performous tools
+Group:		Applications
+
+%description tools
+Provides several utilities for converting data files for Performous.
 
 %prep
 %setup -qn Performous-%{version}-Source
@@ -60,9 +68,12 @@ cd build
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+install docs/man/*.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 %find_lang %{name} --all-name
 
@@ -72,11 +83,15 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc docs/*.txt
-%attr(755,root,root) %{_bindir}/*
-%dir %{_libdir}/%{name}
-%dir %{_libdir}/%{name}/libda-1
-%attr(755,root,root) %{_libdir}/%{name}/libda-1/*.so
+%attr(755,root,root) %{_bindir}/performous
 %{_datadir}/games/%{name}
 %{_mandir}/man6/*
 %{_pixmapsdir}/*
 %{_desktopdir}/*
+
+%files tools
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/gh_*
+%attr(755,root,root) %{_bindir}/itg_pck
+%attr(755,root,root) %{_bindir}/ss_*
+%{_mandir}/man1/*
