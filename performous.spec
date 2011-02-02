@@ -26,7 +26,6 @@ BuildRequires:	opencv-devel
 BuildRequires:	pango-devel
 BuildRequires:	pkgconfig
 BuildRequires:	portaudio-devel
-BuildRequires:	pulseaudio-devel
 Suggests:	%{name}-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
