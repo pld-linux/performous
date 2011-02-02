@@ -4,7 +4,7 @@ Version:	0.6.1
 Release:	3
 License:	GPL v2+
 Group:		Applications
-Source0:	http://dl.sourceforge.net/performous/Performous-%{version}-Source.tar.bz2
+Source0:	http://downloads.sourceforge.net/performous/Performous-%{version}-Source.tar.bz2
 # Source0-md5:	451a759de77984b5a699e91107fe52e2
 URL:		http://performous.org/
 BuildRequires:	ImageMagick-c++-devel
@@ -22,8 +22,10 @@ BuildRequires:	libpng-devel
 BuildRequires:	librsvg-devel
 BuildRequires:	libsigc++-devel
 BuildRequires:	libxml++-devel
+BuildRequires:	opencv-devel
 BuildRequires:	pango-devel
 BuildRequires:	pkgconfig
+BuildRequires:	portaudio-devel
 BuildRequires:	pulseaudio-devel
 Suggests:	%{name}-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
