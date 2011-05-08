@@ -1,7 +1,8 @@
 Summary:	Performous - a free cross-platform singing game
+Summary(pl.UTF-8):	Performous - wieloplatformowa, wolnodostępna gra w śpiewanie
 Name:		performous
 Version:	0.6.1
-Release:	4
+Release:	5
 License:	GPL v2+
 Group:		Applications
 Source0:	http://downloads.sourceforge.net/performous/Performous-%{version}-Source.tar.bz2
@@ -11,7 +12,7 @@ BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	SDL-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	boost-devel
-BuildRequires:	cmake
+BuildRequires:	cmake >= 2.6
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glew-devel
@@ -26,7 +27,7 @@ BuildRequires:	opencv-devel
 BuildRequires:	pango-devel
 BuildRequires:	pkgconfig
 BuildRequires:	portaudio-devel
-Suggests:	%{name}-tools
+Suggests:	%{name}-tools = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -44,22 +45,41 @@ actual karaoke versions are rare.
 For those who sing rather than well, a karaoke mode is provided. In
 this mode only lyrics are displayed and there are no notes or scoring.
 
+%description -l pl.UTF-8
+O ile Performous można zaklasyfikować jako program do karaoke, to
+jest czymś o wiele więcej. Zamiast tylko wyświetlać tekst, wyświetlane
+są także nuty, a wykonanie jest oceniane w oparciu o to, jak dobrze
+pasuje do nut. W przeciwieństwie do innych gier tego gatunku podawana
+jest także dokładna wysokość śpiewanych tonów, więc można zobaczyć, co
+wykonuje się źle i (względnie) łatwo się poprawić.
+
+Większość dostępnych piosenek zawiera także oryginalne wokale, zaś
+wersje karaoke są dość rzadkie.
+
+Dla śpiewających niezbyt dobrze dostępny jest tryb karaoke. W tyb
+trybie wyświetlane są tylko słowa i nie ma nut ani oceniania.
+
 %package tools
 Summary:	Performous tools
+Summary(pl.UTF-8):	Narzędzia do programu Performous
 Group:		Applications
 
 %description tools
-Provides several utilities for converting data files for Performous.
+Several utilities for converting data files for Performous.
+
+%description tools -l pl.UTF-8
+Zestaw narzędzi do konwersji danych dla programu Performous.
 
 %prep
 %setup -qn Performous-%{version}-Source
-%{__sed} -i 's:png12:png14:g' cmake/Modules/FindPng.cmake
 
 %build
 mkdir build
 cd build
 %cmake .. \
 	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
+	-DCMAKE_CXX_FLAGS_RELEASE="%{rpmcxxflags} -DBOOST_FILESYSTEM_VERSION=2" \
+	-DCMAKE_DEBUG_FLAGS_RELEASE="%{debugcflags} -DBOOST_FILESYSTEM_VERSION=2" \
 	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
 %if "%{_lib}" == "lib64"
 	-DLIB_SUFFIX=64
@@ -74,7 +94,7 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man1
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install docs/man/*.1 $RPM_BUILD_ROOT%{_mandir}/man1/
+install docs/man/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %find_lang %{name} --all-name
 
@@ -83,16 +103,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc docs/*.txt
+%doc docs/{Authors,TODO,instruments}.txt
 %attr(755,root,root) %{_bindir}/performous
 %{_datadir}/games/%{name}
-%{_mandir}/man6/*
-%{_pixmapsdir}/*
-%{_desktopdir}/*
+%{_mandir}/man6/performous.6*
+%{_desktopdir}/performous.desktop
+%{_pixmapsdir}/performous.xpm
 
 %files tools
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/gh_*
+%attr(755,root,root) %{_bindir}/gh_*_decrypt
 %attr(755,root,root) %{_bindir}/itg_pck
 %attr(755,root,root) %{_bindir}/ss_*
-%{_mandir}/man1/*
+%{_mandir}/man1/gh_*_decrypt.1*
+%{_mandir}/man1/ss_*.1*
