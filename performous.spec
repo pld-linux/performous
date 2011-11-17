@@ -2,7 +2,7 @@ Summary:	Performous - a free cross-platform singing game
 Summary(pl.UTF-8):	Performous - wieloplatformowa, wolnodostępna gra w śpiewanie
 Name:		performous
 Version:	0.6.1
-Release:	10
+Release:	11
 License:	GPL v2+
 Group:		Applications
 Source0:	http://downloads.sourceforge.net/performous/Performous-%{version}-Source.tar.bz2
