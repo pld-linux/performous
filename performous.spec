@@ -1,8 +1,12 @@
-Summary:	Performous - a free cross-platform singing game
-Summary(pl.UTF-8):	Performous - wieloplatformowa, wolnodostępna gra w śpiewanie
+#
+# TODO:
+#	- update Polish description, current is outdated (it is not only a
+#	karaoke game any more)
+Summary:	Performous - The All-in-One Music Game
+Summary(pl.UTF-8):	Performous - wiele gier muzycznych w jednej
 Name:		performous
 Version:	0.6.1
-Release:	12
+Release:	13
 License:	GPL v2+
 Group:		Applications
 Source0:	http://downloads.sourceforge.net/performous/Performous-%{version}-Source.tar.bz2
@@ -32,24 +36,16 @@ Suggests:	%{name}-tools = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-While Performous might be classified as a karaoke program, it is
-actually much more than that. Instead of just displaying the lyrics,
-notes are also displayed and the performance is scored based on how
-well you actually hit the notes. Unlike in most other games in this
-genre, you will also see the precise pitch that you are singing, so
-that you can see what you are doing wrong and easily (well, everything
-is relative) correct your pitch.
-
-Most of the songs available also contain the original vocals and
-actual karaoke versions are rare.
-
-For those who sing rather than well, a karaoke mode is provided. In
-this mode only lyrics are displayed and there are no notes or scoring.
+An open-source karaoke, band and dancing game where one or more
+players perform a song and the game scores their perform ances.
+Supports songs in UltraStar, Frets on Fire and StepMania formats.
+Microphones and instruments from SingStar, Guit ar Hero and Rock Band
+as well as some dance pads are autodetected.
 
 %description -l pl.UTF-8
-O ile Performous można zaklasyfikować jako program do karaoke, to
-jest czymś o wiele więcej. Zamiast tylko wyświetlać tekst, wyświetlane
-są także nuty, a wykonanie jest oceniane w oparciu o to, jak dobrze
+O ile Performous można zaklasyfikować jako program do karaoke, to jest
+czymś o wiele więcej. Zamiast tylko wyświetlać tekst, wyświetlane są
+także nuty, a wykonanie jest oceniane w oparciu o to, jak dobrze
 pasuje do nut. W przeciwieństwie do innych gier tego gatunku podawana
 jest także dokładna wysokość śpiewanych tonów, więc można zobaczyć, co
 wykonuje się źle i (względnie) łatwo się poprawić.
