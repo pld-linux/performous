@@ -1,0 +1,10 @@
+--- Performous-0.6.1-Source/game/image.hh~	2010-10-31 17:05:43.000000000 +0100
++++ Performous-0.6.1-Source/game/image.hh	2012-02-13 00:17:16.946256183 +0100
+@@ -8,6 +8,7 @@
+ #include <librsvg/rsvg.h>
+ #include <librsvg/rsvg-cairo.h>
+ #include <png.h>
++#include <zlib.h>
+ #include <fstream>
+ 
+ struct Image {
