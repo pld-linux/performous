@@ -1,0 +1,92 @@
+--- Performous-0.6.1-Source/game/xtime.hh~	2010-10-31 17:05:43.000000000 +0100
++++ Performous-0.6.1-Source/game/xtime.hh	2012-07-11 23:32:18.102217244 +0200
+@@ -20,7 +20,7 @@
+ 	}
+ 	boost::xtime now() {
+ 		boost::xtime time;
+-		boost::xtime_get(&time, boost::TIME_UTC);
++		boost::xtime_get(&time, boost::TIME_UTC_);
+ 		return time;
+ 	}
+ 	double seconds(boost::xtime const& time) {
+--- Performous-0.6.1-Source/game/backgrounds.cc.orig	2012-07-11 23:39:56.532201074 +0200
++++ Performous-0.6.1-Source/game/backgrounds.cc	2012-07-11 23:41:57.872196793 +0200
+@@ -55,8 +55,8 @@
+ 		for (fs::directory_iterator dirIt(parent), dirEnd; m_loading && dirIt != dirEnd; ++dirIt) {
+ 			fs::path p = dirIt->path();
+ 			if (fs::is_directory(p)) { reload_internal(p); continue; }
+-			std::string name = p.leaf(); // File basename
+-			std::string path = p.directory_string(); // Path without filename
++			std::string name = p.filename().string(); // File basename
++			std::string path = p.string(); // Path without filename
+ 			path.erase(path.size() - name.size());
+ 			if (!regex_match(name.c_str(), match, expression)) continue;
+ 			{
+--- Performous-0.6.1-Source/game/filemagic.hh.orig	2010-10-31 17:05:43.000000000 +0100
++++ Performous-0.6.1-Source/game/filemagic.hh	2012-07-12 00:03:24.689391875 +0200
+@@ -71,7 +71,7 @@
+ 		// For now, just check the extension an assume it's not lying.
+ 
+ 		// Get file extension in lower case
+-		std::string ext = filename.extension();
++		std::string ext = filename.extension().string();
+ 		// somehow this does not convert the extension to lower case:
+ 		//std::for_each(ext.begin(), ext.end(), static_cast<int(*)(int)>(std::tolower));
+ 		std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower );
+--- Performous-0.6.1-Source/game/songs.cc.orig	2012-07-12 00:11:59.302707053 +0200
++++ Performous-0.6.1-Source/game/songs.cc	2012-07-12 00:12:34.382705813 +0200
+@@ -67,8 +67,8 @@
+ 		for (fs::directory_iterator dirIt(parent), dirEnd; m_loading && dirIt != dirEnd; ++dirIt) {
+ 			fs::path p = dirIt->path();
+ 			if (fs::is_directory(p)) { reload_internal(p); continue; }
+-			std::string name = p.leaf(); // File basename (notes.txt)
+-			std::string path = p.directory_string(); // Path without filename
++			std::string name = p.filename().string(); // File basename (notes.txt)
++			std::string path = p.string(); // Path without filename
+ 			path.erase(path.size() - name.size());
+ 			if (!regex_match(name.c_str(), match, expression)) continue;
+ 			try {
+--- Performous-0.6.1-Source/game/cache.cc~	2010-10-31 17:05:43.000000000 +0100
++++ Performous-0.6.1-Source/game/cache.cc	2012-07-12 00:14:28.226035127 +0200
+@@ -9,7 +9,7 @@
+ 	fs::path constructSVGCacheFileName(fs::path const& svgfilename, double factor){
+ 		fs::path cache_filename;
+ 		std::string const lod = (boost::format("%.2f") % factor).str();
+-		std::string const cache_basename = svgfilename.filename() + ".cache_" + lod + ".png";
++		std::string const cache_basename = svgfilename.filename().string() + ".cache_" + lod + ".png";
+ 
+ 		if (isThemeResource(svgfilename)) {
+ 			std::string const theme_name = (config["game/theme"].s().empty() ? "default" : config["game/theme"].s());
+--- Performous-0.6.1-Source/game/songparser-ini.cc~	2010-10-31 17:05:43.000000000 +0100
++++ Performous-0.6.1-Source/game/songparser-ini.cc	2012-07-12 00:15:52.466032156 +0200
+@@ -94,7 +94,7 @@
+ 	// Search the dir for the music files
+ 	for (boost::filesystem::directory_iterator dirIt(s.path), dirEnd; dirIt != dirEnd; ++dirIt) {
+ 		boost::filesystem::path p = dirIt->path();
+-		std::string name = p.leaf(); // File basename (notes.txt)
++		std::string name = p.filename().string(); // File basename (notes.txt)
+ 		if (regex_match(name.c_str(), match, midifile)) {
+ 			 s.midifilename = name;
+ 		} else if (regex_match(name.c_str(), match, audiofile_background)) {
+--- Performous-0.6.1-Source/game/fs.cc~	2010-10-31 17:05:43.000000000 +0100
++++ Performous-0.6.1-Source/game/fs.cc	2012-07-12 00:16:42.242697067 +0200
+@@ -127,7 +127,7 @@
+ 
+ bool isThemeResource(fs::path filename){
+ 	try {
+-		std::string themefile = getThemePath(filename.filename());
++		std::string themefile = getThemePath(filename.filename().string());
+ 		return themefile == filename;
+ 	} catch (...) { return false; }
+ }
+--- Performous-0.6.1-Source/game/songparser.cc~	2010-10-31 17:05:43.000000000 +0100
++++ Performous-0.6.1-Source/game/songparser.cc	2012-07-12 00:17:20.302695724 +0200
+@@ -101,7 +101,7 @@
+ 
+ 		for (boost::filesystem::directory_iterator dirIt(s.path), dirEnd; dirIt != dirEnd; ++dirIt) {
+ 			boost::filesystem::path p = dirIt->path();
+-			std::string name = p.leaf(); // File basename
++			std::string name = p.filename().string(); // File basename
+ 			if (m_song.cover.empty() && regex_match(name.c_str(), match, coverfile)) {
+ 				m_song.cover = name;
+ 			} else if (m_song.background.empty() && regex_match(name.c_str(), match, backgroundfile)) {

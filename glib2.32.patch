@@ -1,0 +1,11 @@
+--- Performous-0.6.1-Source/game/unicode.cc~	2010-10-31 17:05:43.000000000 +0100
++++ Performous-0.6.1-Source/game/unicode.cc	2012-07-12 00:18:01.832694262 +0200
+@@ -2,7 +2,7 @@
+ 
+ #include <boost/scoped_ptr.hpp>
+ #include <glibmm/ustring.h>
+-#include <glib/gconvert.h>
++#include <glib.h>
+ #include <sstream>
+ #include <stdexcept>
+ 

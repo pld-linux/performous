@@ -6,13 +6,16 @@ Summary:	Performous - The All-in-One Music Game
 Summary(pl.UTF-8):	Performous - wiele gier muzycznych w jednej
 Name:		performous
 Version:	0.6.1
-Release:	18
+Release:	19
 License:	GPL v2+
 Group:		Applications
 Source0:	http://downloads.sourceforge.net/performous/Performous-%{version}-Source.tar.bz2
 # Source0-md5:	451a759de77984b5a699e91107fe52e2
 Patch0:		%{name}-ffmpeg.patch
 Patch1:		%{name}-libpng15.patch
+Patch2:		cmake.patch
+Patch3:		boost-1.50.patch
+Patch4:		glib2.32.patch
 URL:		http://performous.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	SDL-devel
@@ -72,14 +75,17 @@ Zestaw narzędzi do konwersji danych dla programu Performous.
 %setup -qn Performous-%{version}-Source
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 mkdir build
 
 %build
 cd build
 %cmake .. \
 	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
-	-DCMAKE_CXX_FLAGS_RELEASE="%{rpmcxxflags} -DBOOST_FILESYSTEM_VERSION=2" \
-	-DCMAKE_DEBUG_FLAGS_RELEASE="%{debugcflags} -DBOOST_FILESYSTEM_VERSION=2" \
+	-DCMAKE_CXX_FLAGS_RELEASE="%{rpmcxxflags}" \
+	-DCMAKE_DEBUG_FLAGS_RELEASE="%{debugcflags}" \
 	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
 %if "%{_lib}" == "lib64"
 	-DLIB_SUFFIX=64
