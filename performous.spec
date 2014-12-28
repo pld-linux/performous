@@ -21,7 +21,7 @@ BuildRequires:	alsa-lib-devel
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.6
 BuildRequires:	ffmpeg-devel
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glew-devel
 BuildRequires:	glibmm-devel
 BuildRequires:	help2man
