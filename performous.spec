@@ -2,16 +2,19 @@
 # TODO:
 #	- update Polish description, current is outdated (it is not only a
 #	karaoke game any more)
+
+%define	snap	20151130
+%define commit	3c8d8caeac59d6e2fd9ec8c5f1606fee9b483d10
+
 Summary:	Performous - The All-in-One Music Game
 Summary(pl.UTF-8):	Performous - wiele gier muzycznych w jednej
 Name:		performous
-Version:	1.0
+Version:	1.0_%{snap}
 Release:	0.1
 License:	GPL v2+
 Group:		Applications
-Source0:	https://github.com/performous/performous/archive/1.0/%{name}-%{version}.tar.gz
-# Source0-md5:	cbeec2f0c0114cc499746c1e33f56055
-Patch1:		bool_cast.patch
+Source0:	https://github.com/performous/performous/archive/%{commit}/%{name}-%{version}.tar.gz
+# Source0-md5:	ebc17a6e4fba86557b559c0f27ea0ae2
 URL:		http://performous.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	SDL-devel
@@ -20,7 +23,7 @@ BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.6
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gettext-tools
-BuildRequires:	glew-devel
+BuildRequires:	libepoxy-devel
 BuildRequires:	glibmm-devel
 BuildRequires:	help2man
 BuildRequires:	jack-audio-connection-kit-devel
@@ -68,8 +71,7 @@ Several utilities for converting data files for Performous.
 Zestaw narzędzi do konwersji danych dla programu Performous.
 
 %prep
-%setup -q
-%patch1 -p1
+%setup -qn %{name}-%{commit}
 
 mkdir build
 
