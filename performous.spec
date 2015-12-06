@@ -1,7 +1,3 @@
-#
-# TODO:
-#	- update Polish description, current is outdated (it is not only a
-#	karaoke game any more)
 Summary:	Performous - The All-in-One Music Game
 Summary(pl.UTF-8):	Performous - wiele gier muzycznych w jednej
 Name:		performous
@@ -43,18 +39,10 @@ Microphones and instruments from SingStar, Guit ar Hero and Rock Band
 as well as some dance pads are autodetected.
 
 %description -l pl.UTF-8
-O ile Performous można zaklasyfikować jako program do karaoke, to jest
-czymś o wiele więcej. Zamiast tylko wyświetlać tekst, wyświetlane są
-także nuty, a wykonanie jest oceniane w oparciu o to, jak dobrze
-pasuje do nut. W przeciwieństwie do innych gier tego gatunku podawana
-jest także dokładna wysokość śpiewanych tonów, więc można zobaczyć, co
-wykonuje się źle i (względnie) łatwo się poprawić.
-
-Większość dostępnych piosenek zawiera także oryginalne wokale, zaś
-wersje karaoke są dość rzadkie.
-
-Dla śpiewających niezbyt dobrze dostępny jest tryb karaoke. W tyb
-trybie wyświetlane są tylko słowa i nie ma nut ani oceniania.
+Karaoke, gitara i taniec w jednej grze. Obsługuje utwory w formatach
+UltraStar, Frets on Fire i StepManii. Mikrofony i kontrolery z gier
+SingStar, Guitar Hero i Rock Band oraz maty do tańca są automatycznie
+wykrywane.
 
 %package tools
 Summary:	Performous tools
