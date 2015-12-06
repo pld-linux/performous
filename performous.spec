@@ -2,7 +2,7 @@ Summary:	Performous - The All-in-One Music Game
 Summary(pl.UTF-8):	Performous - wiele gier muzycznych w jednej
 Name:		performous
 Version:	1.0
-Release:	0.1
+Release:	1
 License:	GPL v2+
 Group:		Applications
 Source0:	https://github.com/performous/performous/archive/1.0/%{name}-%{version}.tar.gz
@@ -86,7 +86,7 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man1
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install docs/man/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+cp -p docs/man/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{zh,zh_CN}
 
