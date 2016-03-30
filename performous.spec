@@ -2,15 +2,16 @@ Summary:	Performous - The All-in-One Music Game
 Summary(pl.UTF-8):	Performous - wiele gier muzycznych w jednej
 Name:		performous
 Version:	1.0
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		Applications
 Source0:	https://github.com/performous/performous/archive/1.0/%{name}-%{version}.tar.gz
 # Source0-md5:	cbeec2f0c0114cc499746c1e33f56055
-Patch1:		bool_cast.patch
+Patch0:		bool_cast.patch
+Patch1:		ffmpeg3.patch
 URL:		http://performous.org/
 BuildRequires:	ImageMagick-c++-devel
-BuildRequires:	SDL-devel
+BuildRequires:	SDL2-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.6
@@ -23,7 +24,7 @@ BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	libpng-devel
 BuildRequires:	librsvg-devel
 BuildRequires:	libsigc++-devel
-BuildRequires:	libxml++-devel
+BuildRequires:	libxml++2-devel
 BuildRequires:	opencv-devel
 BuildRequires:	pango-devel
 BuildRequires:	pkgconfig
@@ -57,6 +58,7 @@ Zestaw narzędzi do konwersji danych dla programu Performous.
 
 %prep
 %setup -q
+%patch0 -p1
 %patch1 -p1
 
 mkdir build
