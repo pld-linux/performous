@@ -1,34 +1,41 @@
 Summary:	Performous - The All-in-One Music Game
 Summary(pl.UTF-8):	Performous - wiele gier muzycznych w jednej
 Name:		performous
-Version:	1.0
-Release:	8
+Version:	1.1
+Release:	1
 License:	GPL v2+
-Group:		Applications
-Source0:	https://github.com/performous/performous/archive/1.0/%{name}-%{version}.tar.gz
-# Source0-md5:	cbeec2f0c0114cc499746c1e33f56055
-Patch0:		bool_cast.patch
-Patch1:		ffmpeg3.patch
+Group:		Applications/Sound
+#Source0Download: https://github.com/performous/performous/releases
+Source0:	https://github.com/performous/performous/archive/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	cf31d0973cd88b3cd626d312d6d3f5b2
+Patch0:		%{name}-boost.patch
 URL:		http://performous.org/
 BuildRequires:	ImageMagick-c++-devel
-BuildRequires:	SDL2-devel
-BuildRequires:	alsa-lib-devel
-BuildRequires:	boost-devel
-BuildRequires:	cmake >= 2.6
+BuildRequires:	SDL2-devel >= 2
+BuildRequires:	boost-devel >= 1.36
+BuildRequires:	cmake >= 2.8
+# avformat avresample swscale
 BuildRequires:	ffmpeg-devel
+BuildRequires:	fontconfig-devel
 BuildRequires:	gettext-tools
 BuildRequires:	glew-devel
 BuildRequires:	glibmm-devel
 BuildRequires:	help2man
-BuildRequires:	jack-audio-connection-kit-devel
+BuildRequires:	libepoxy-devel >= 1.2
+BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	librsvg-devel
 BuildRequires:	libsigc++-devel
-BuildRequires:	libxml++2-devel
+BuildRequires:	libstdc++-devel >= 6:4.6
+BuildRequires:	libxml2-devel >= 2.0
+BuildRequires:	libxml++2-devel >= 2.6
 BuildRequires:	opencv-devel
-BuildRequires:	pango-devel
+BuildRequires:	pango-devel >= 1:1.12
 BuildRequires:	pkgconfig
 BuildRequires:	portaudio-devel
+BuildRequires:	portmidi-devel
+BuildRequires:	rpmbuild(macros) >= 1.605
+BuildRequires:	zlib-devel
 Suggests:	%{name}-tools = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -48,7 +55,7 @@ wykrywane.
 %package tools
 Summary:	Performous tools
 Summary(pl.UTF-8):	Narzędzia do programu Performous
-Group:		Applications
+Group:		Applications/Sound
 
 %description tools
 Several utilities for converting data files for Performous.
@@ -59,25 +66,16 @@ Zestaw narzędzi do konwersji danych dla programu Performous.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-
-mkdir build
 
 %build
+install -d build
 cd build
 %cmake .. \
 	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
 	-DCMAKE_CXX_FLAGS_RELEASE="%{rpmcxxflags} -std=gnu++11" \
 	-DCMAKE_DEBUG_FLAGS_RELEASE="%{debugcflags}" \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
 	-DMagick_LIBRARY="$(echo %{_libdir}/libMagickCore-*.so)" \
-	-DMagick++_LIBRARY="$(echo %{_libdir}/libMagick++-*.so)" \
-%if "%{_lib}" == "lib64"
-	-DLIB_SUFFIX=64
-%endif
-%if "%{_lib}" == "libx32"
-	-DLIB_SUFFIX=x32
-%endif
+	-DMagick++_LIBRARY="$(echo %{_libdir}/libMagick++-*.so)"
 
 %{__make}
 

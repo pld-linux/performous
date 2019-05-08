@@ -1,0 +1,50 @@
+--- performous-1.1/game/backgrounds.hh.orig	2016-01-23 11:40:01.000000000 +0100
++++ performous-1.1/game/backgrounds.hh	2019-05-08 16:01:24.991915179 +0200
+@@ -3,6 +3,7 @@
+ //#include "animvalue.hh"
+ #include "fs.hh"
+ //#include "song.hh"
++#include <boost/noncopyable.hpp>
+ #include <boost/shared_ptr.hpp>
+ #include <boost/scoped_ptr.hpp>
+ #include <boost/thread/mutex.hpp>
+--- performous-1.1/game/audio.cc.orig	2019-05-08 17:34:23.030331012 +0200
++++ performous-1.1/game/audio.cc	2019-05-08 17:34:26.247165898 +0200
+@@ -77,7 +77,7 @@
+ 	static ptime getTime() { return microsec_clock::universal_time(); }
+ 	// Conversion helpers
+ 	static double getSeconds(time_duration t) { return 1e-6 * t.total_microseconds(); }
+-	static time_duration getDuration(double seconds) { return microseconds(1e6 * seconds); }
++	static time_duration getDuration(double seconds) { return microseconds(static_cast<long>(1e6 * seconds)); }
+ 
+ 	mutable boost::mutex m_mutex;
+ 	ptime m_baseTime; ///< A reference time (corresponds to m_basePos)
+@@ -149,7 +149,7 @@
+ 	int64_t m_pos; ///< Current sample position
+ 	bool m_preview;
+ 	AudioClock m_clock;
+-	time_duration durationOf(int64_t samples) const { return microseconds(1e6 * samples / srate / 2.0); }
++	time_duration durationOf(int64_t samples) const { return microseconds(static_cast<long>(1e6 * samples / srate / 2.0)); }
+ public:
+ 	bool suppressCenterChannel;
+ 	double fadeLevel;
+--- performous-1.1/game/songs.hh.orig	2016-01-23 11:40:01.000000000 +0100
++++ performous-1.1/game/songs.hh	2019-05-08 17:34:44.194771102 +0200
+@@ -2,6 +2,7 @@
+ 
+ #include "animvalue.hh"
+ #include "fs.hh"
++#include <boost/noncopyable.hpp>
+ #include <boost/shared_ptr.hpp>
+ #include <boost/scoped_ptr.hpp>
+ #include <boost/thread/mutex.hpp>
+--- performous-1.1/game/svg.cc.orig	2016-01-23 11:40:01.000000000 +0100
++++ performous-1.1/game/svg.cc	2019-05-08 17:49:07.689926184 +0200
+@@ -4,6 +4,7 @@
+ #include "configuration.hh"
+ #include "../common/image.hh"
+ 
++#include <boost/shared_ptr.hpp>
+ #include <librsvg/rsvg.h>
+ #include <iostream>
+ 
