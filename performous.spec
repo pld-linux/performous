@@ -2,13 +2,14 @@ Summary:	Performous - The All-in-One Music Game
 Summary(pl.UTF-8):	Performous - wiele gier muzycznych w jednej
 Name:		performous
 Version:	1.1
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/Sound
 #Source0Download: https://github.com/performous/performous/releases
 Source0:	https://github.com/performous/performous/archive/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	cf31d0973cd88b3cd626d312d6d3f5b2
 Patch0:		%{name}-boost.patch
+Patch1:		%{name}-pango1.44.patch
 URL:		http://performous.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	SDL2-devel >= 2
@@ -66,6 +67,7 @@ Zestaw narzędzi do konwersji danych dla programu Performous.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 install -d build
