@@ -12,6 +12,7 @@ Source1:	compact_enc_det.tar.xz
 # Source1-md5:	c4af58e784fe054b787254acf5c1af12
 Patch0:		ced-no-forced-cxx11.patch
 Patch1:		find-ced.patch
+Patch2:		no-Werror.patch
 URL:		http://performous.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	SDL2-devel >= 2
@@ -24,8 +25,10 @@ BuildRequires:	fontconfig-devel
 BuildRequires:	gettext-tools
 BuildRequires:	glew-devel
 BuildRequires:	glibmm-devel
+BuildRequires:	gmock-devel
 BuildRequires:	help2man
 BuildRequires:	libepoxy-devel >= 1.2
+BuildRequires:	libfmt-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	librsvg-devel
@@ -61,6 +64,7 @@ wykrywane.
 %setup -q -a1
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 cd compact_enc_det
