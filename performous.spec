@@ -1,41 +1,41 @@
+# TODO: cpprestsdk or cpprest for webserver support
 Summary:	Performous - The All-in-One Music Game
 Summary(pl.UTF-8):	Performous - wiele gier muzycznych w jednej
 Name:		performous
-Version:	1.3.0
+Version:	1.3.1
 Release:	1
 License:	GPL v2+
 Group:		Applications/Sound
 #Source0Download: https://github.com/performous/performous/releases
 Source0:	https://github.com/performous/performous/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	1579905ea88e09611e90b737e9417895
-Source1:	compact_enc_det.tar.xz
-# Source1-md5:	c4af58e784fe054b787254acf5c1af12
-Patch0:		ced-no-forced-cxx11.patch
-Patch1:		find-ced.patch
+# Source0-md5:	02fd71009bc2ecece42f723aa4baca7c
 Patch2:		no-Werror.patch
 URL:		http://performous.org/
-BuildRequires:	ImageMagick-c++-devel
+BuildRequires:	GLM-devel
 BuildRequires:	SDL2-devel >= 2
-BuildRequires:	aubio-devel
-BuildRequires:	boost-devel >= 1.36
-BuildRequires:	cmake >= 2.8
-# avformat avresample swscale
+BuildRequires:	aubio-devel >= 0.4.9
+BuildRequires:	boost-devel >= 1.55
+BuildRequires:	cairo-devel
+BuildRequires:	cmake >= 3.15
+# avformat swresample swscale
 BuildRequires:	ffmpeg-devel
 BuildRequires:	fontconfig-devel
 BuildRequires:	gettext-tools
 BuildRequires:	glew-devel
-BuildRequires:	glibmm-devel
+BuildRequires:	glib2-devel >= 2.0
+BuildRequires:	glibmm-devel >= 2.4
 BuildRequires:	gmock-devel
 BuildRequires:	help2man
 BuildRequires:	libepoxy-devel >= 1.2
-BuildRequires:	libfmt-devel
+BuildRequires:	libicu-devel >= 60
+BuildRequires:	libfmt-devel >= 9.0.0
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-BuildRequires:	librsvg-devel
+BuildRequires:	librsvg-devel >= 2
 BuildRequires:	libsigc++-devel
-BuildRequires:	libstdc++-devel >= 6:4.6
+BuildRequires:	libstdc++-devel >= 6:7
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	libxml++2-devel >= 2.6
+BuildRequires:	libxml++5-devel >= 5.0
 BuildRequires:	nlohmann-json-devel >= 3.10.5
 BuildRequires:	opencv-devel
 BuildRequires:	pango-devel >= 1:1.12
@@ -61,36 +61,18 @@ SingStar, Guitar Hero i Rock Band oraz maty do tańca są automatycznie
 wykrywane.
 
 %prep
-%setup -q -a1
-%patch0 -p1
-%patch1 -p1
+%setup -q
 %patch2 -p1
 
 %build
-cd compact_enc_det
-install -d build
-cd build
-%cmake .. \
-	-DBUILD_SHARED_LIBS=OFF
-%{__make} ced
-cp -p lib/libced.a ../compact_enc_det
-cd ../..
-
-SRC=$(pwd)
-install -d build/game
-cd build
-%cmake .. \
+%cmake -B build \
 	-DCMAKE_INSTALL_MANDIR=%{_mandir}/man6 \
 	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
 	-DCMAKE_CXX_FLAGS_RELEASE="%{rpmcxxflags}" \
 	-DCMAKE_DEBUG_FLAGS_RELEASE="%{debugcflags}" \
-	-DMagick_LIBRARY="$(echo %{_libdir}/libMagickCore-*.so)" \
-	-DMagick++_LIBRARY="$(echo %{_libdir}/libMagick++-*.so)" \
-	-DSELF_BUILT_CED=NEVER \
-	-DCed_INCLUDE_DIRS="$SRC/compact_enc_det" \
-	-DCed_LIBRARIES="-L$SRC/compact_enc_det/compact_enc_det $SRC/compact_enc_det/compact_enc_det/libced.a"
+	-DSELF_BUILT_CED=NEVER
 
-%{__make}
+%{__make} -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -113,4 +95,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/games/%{name}
 %{_mandir}/man6/performous.6*
 %{_desktopdir}/performous.desktop
-%{_pixmapsdir}/performous.svg
+%{_iconsdir}/hicolor/scalable/apps/performous.svg
