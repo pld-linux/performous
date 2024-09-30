@@ -17,6 +17,7 @@ BuildRequires:	aubio-devel >= 0.4.9
 BuildRequires:	boost-devel >= 1.55
 BuildRequires:	cairo-devel
 BuildRequires:	cmake >= 3.15
+BuildRequires:	compact_enc_det-devel
 # avformat swresample swscale
 BuildRequires:	ffmpeg-devel
 BuildRequires:	fontconfig-devel
