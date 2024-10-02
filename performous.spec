@@ -1,9 +1,8 @@
-# TODO: cpprestsdk or cpprest for webserver support
 Summary:	Performous - The All-in-One Music Game
 Summary(pl.UTF-8):	Performous - wiele gier muzycznych w jednej
 Name:		performous
 Version:	1.3.1
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/Sound
 #Source0Download: https://github.com/performous/performous/releases
@@ -18,6 +17,7 @@ BuildRequires:	boost-devel >= 1.55
 BuildRequires:	cairo-devel
 BuildRequires:	cmake >= 3.15
 BuildRequires:	compact_enc_det-devel
+BuildRequires:	cpprestsdk-devel
 # avformat swresample swscale
 BuildRequires:	ffmpeg-devel
 BuildRequires:	fontconfig-devel
