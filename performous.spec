@@ -63,7 +63,7 @@ wykrywane.
 
 %prep
 %setup -q
-%patch2 -p1
+%patch -P2 -p1
 
 %build
 %cmake -B build \
