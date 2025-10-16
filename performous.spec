@@ -2,7 +2,7 @@ Summary:	Performous - The All-in-One Music Game
 Summary(pl.UTF-8):	Performous - wiele gier muzycznych w jednej
 Name:		performous
 Version:	1.3.1
-Release:	5
+Release:	6
 License:	GPL v2+
 Group:		Applications/Sound
 #Source0Download: https://github.com/performous/performous/releases
